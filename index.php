@@ -45,9 +45,9 @@
                     {
                         $('#user_table').html(data);
                     }
-                })
+                });
             }
-        })
+        });
     </script>
 </body>
 </html>
