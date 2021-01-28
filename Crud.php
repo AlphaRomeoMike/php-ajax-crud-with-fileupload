@@ -34,7 +34,7 @@ class Crud {
                 <th width="10%">Image</th>
                 <th width="35%">First Name</th>
                 <th width="35%">Last Name</th>
-                <th width="20%">Action</th>
+                <th width="10%">Action</th>
             </tr>
         </thead>
         <tbody>
@@ -47,12 +47,24 @@ class Crud {
             <td><img src="upload/'.$row->image.'" width="50" height="30" /></td>
             <td>'.$row->first_name.'</td>
             <td>'.$row->last_name.'</td>
-            <td class="form-inline"><button type="button" name="update" id="'.$row->id.'" class="btn btn-outline-success btn-xs update"><i class="fas fa-pen"><span> </span>Update</i></button><span>&nbsp;</span><br>
-            <button type="button" name="delete" id="'.$row->id.'" class="btn btn-outline-danger btn-xs delete"><i class="fas fa-trash-alt">Delete</i></button></td>
+            <td class="form-inline"><button type="button" name="update" id="'.$row->id.'" class="btn btn-outline-success btn-xs update"><i class="fas fa-pen"></i></button><span>&nbsp;</span><br>
+            <button type="button" name="delete" id="'.$row->id.'" class="btn btn-outline-danger btn-xs delete"><i class="fas fa-trash-alt"></i></button></td>
         </tr>
             ';
         }
         $output .= '</table></div>' ;
         return $output;
+    }
+
+    public function upload_file($file) 
+    {
+        if(isset($file)) 
+        {
+            $extension      = explode('.', $file['name']);
+            $new_name       = rand(). '.' . $extension[1];
+            $destination    = './upload/'. $new_name;
+            move_uploaded_file($file['tmp_name'], $destination);
+            return $new_name;
+        }
     }
 }
