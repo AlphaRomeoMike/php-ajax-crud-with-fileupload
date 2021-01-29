@@ -22,3 +22,11 @@ main {
 .container h3 {
     margin-top: 5%;
 }
+
+.card-header {
+    padding-top: 30px;
+}
+
+.render {
+    margin-top: 15px;
+}
