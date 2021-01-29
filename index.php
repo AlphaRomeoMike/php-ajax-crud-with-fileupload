@@ -43,11 +43,14 @@
                     <br>
                     <div class="form-group">
                     <label for="user_image">Image</label>
-                      <input type="file" name="user_image" id="user_image" class="form-control" placeholder="Eg. Modi">
+                      <input type="file" name="user_image" id="user_image" class="form-control" />
+                      <input type="hidden" name="hidden_user_image" id="hidden_user_image" />
+                      <span id="uploaded_image"></span>
                       <small class="text-muted">Select your image</small>
                     </div>
                     <div align="center">
                         <input type="hidden" name="action" id="action">
+                        <input type="hidden" name="user_id" id="user_id">
                         <input type="submit" name="button_action" id="button_action" value="Insert" class="btn btn-outline-danger" />
                     </div>
                     </form>
@@ -131,10 +134,34 @@
                             title: 'Error!',
                             text: 'Both fields are required',
                             icon: 'error',
-                            confirmButtonText: 'Cool'
+                            confirmButtonText: 'Okay'
                         });
                 }
             });
+
+            $(document).on('click', '.update', function(){
+                var user_id = $(this).attr('id');
+                var action = "Fetch Single Data";
+                $.ajax({
+                    url: "action.php",
+                    method: "POST",
+                    data:{user_id:user_id, action:action},
+                    dataType: "json",
+                    success:function(data)
+                    {
+                        $('.collapse').collapse("show");
+                        $('#first_name').val(data.first_name);
+                        $('#last_name').val(data.last_name);
+                        $('#last_name').val(data.last_name);
+                        $('#uploaded_image').val(data.image);
+                        $('#hidden_user_image').val(data.user_image);
+                        $('#button_action').val("Edit");
+                        $('#action').val("Edit");
+                        $('#user_id').val(user_id);
+                        console.log(data);
+                    }
+                })
+            })
         });
     </script>
 </body>
